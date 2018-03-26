@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     EditText emailText;
     EditText passwordText;
 
+    String name="Emre Dipi";
+
 
 
     @Override
