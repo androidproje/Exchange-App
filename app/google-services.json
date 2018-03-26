@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "840699930070",
+    "firebase_url": "https://exchangeproje.firebaseio.com",
+    "project_id": "exchangeproje",
+    "storage_bucket": "exchangeproje.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840699930070:android:556e889738a77ff8",
+        "android_client_info": {
+          "package_name": "com.example.mustafa.exchange"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840699930070-q8o7n3plih6lv8np035q1veobj8ekofn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPOvuI_iqRGvNmDNpcv5xQQeBCb0kFE7U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
