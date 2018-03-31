@@ -6,4 +6,42 @@
     android:layout_height="match_parent"
     tools:context="com.example.mustafa.exchange.FeedActivity">
 
+<android.support.design.widget.AppBarLayout
+    android:id="@+id/appbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#cfece9"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:theme="@style/AlertDialog.AppCompat">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:paddingTop="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+</android.support.design.widget.AppBarLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <GridView
+        android:id="@+id/listview1"
+        android:paddingTop="70dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="10dp"
+        android:columnWidth="90dp"
+        android:gravity="center|bottom"
+        android:horizontalSpacing="10dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp"
+        android:numColumns="2"
+        >
+
+    </GridView>
+
+    
+
 </android.support.constraint.ConstraintLayout>

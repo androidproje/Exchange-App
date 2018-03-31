@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import  android.support.v7.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -20,11 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     EditText emailText;
     EditText passwordText;
-
-    String name="Emre Dipi";
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
         emailText=findViewById(R.id.emailText);
         passwordText=findViewById(R.id.passwordText);
-
         mAuth=FirebaseAuth.getInstance();
         mAuthStateListener=new FirebaseAuth.AuthStateListener() {
             @Override
@@ -40,10 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
-
-
     }
-
     public void signUp(View view){
        mAuth.createUserWithEmailAndPassword(emailText.getText().toString(),passwordText.getText().toString())
                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -63,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
        });
 
     }
-
     public void signIn(View view){
 
         mAuth.signInWithEmailAndPassword(emailText.getText().toString(),passwordText.getText().toString())
@@ -72,24 +63,18 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
-
                             Intent intent=new Intent(getApplicationContext(),FeedActivity.class);
                             startActivity(intent);
-
-                        }
+                         }
                     }
                 }).addOnFailureListener(this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
 
                 Toast.makeText(getApplicationContext(),e.getLocalizedMessage().toString(),Toast.LENGTH_LONG).show();
-
-
             }
         });
     }
-
-
     @Override
     protected void onStart() {
         super.onStart();

@@ -4,7 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="#e8fff5"
     tools:context="com.example.mustafa.exchange.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <EditText
         android:id="@+id/emailText"
@@ -14,6 +22,7 @@
         android:ems="10"
         android:hint="Enter e-mail"
         android:inputType="textEmailAddress"
+        android:text="samet@hotmail.com"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,9 +32,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
+        android:drawableLeft="@drawable/lock1"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        android:text="123456"
         app:layout_constraintStart_toStartOf="@+id/emailText"
         app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
@@ -39,12 +50,18 @@
         app:layout_constraintStart_toStartOf="@+id/passwordText"
         app:layout_constraintTop_toBottomOf="@+id/passwordText" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
+     <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Sign up"
+        android:textColor="#fff"
+         android:background="@color/colorAccent"
+        android:textAllCaps="false"
         android:onClick="signUp"
-        android:text="Sign Up"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button2"
-        app:layout_constraintEnd_toEndOf="@+id/passwordText" />
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:padding="16dp"/>
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
