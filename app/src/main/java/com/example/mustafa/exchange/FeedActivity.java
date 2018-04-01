@@ -7,6 +7,8 @@ import android.renderscript.Allocation;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,23 +34,9 @@ public class FeedActivity extends AppCompatActivity {
     DatabaseReference myRef;
     PostClass adapter;
     GridView gridView;
+    RecyclerView recyclerView;
     SectionsPageAdapter sectionsPageAdapter;
     private ViewPager viewPager;
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.add_post,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.add_post) {
-            Intent intent = new Intent(getApplicationContext(),UploadActivity.class);
-            startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +48,8 @@ public class FeedActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setIcon(R.mipmap.ic_launcher);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_launcher_background);
+        tabLayout.getTabAt(0).setIcon(R.drawable.phone);
+        tabLayout.getTabAt(1).setIcon(R.drawable.car_icon);
 
         useremailsFromFB = new ArrayList<String>();
         usercommentFromFB = new ArrayList<String>();
@@ -81,10 +69,8 @@ public class FeedActivity extends AppCompatActivity {
 
         DatabaseReference newReference = firebaseDatabase.getReference("Posts");
         newReference.addValueEventListener(new ValueEventListener() {
-
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     HashMap<String, String> hashMap = (HashMap<String, String>) ds.getValue();
@@ -100,14 +86,33 @@ public class FeedActivity extends AppCompatActivity {
             }
         });
 
-
     }
-        private void setupPager(ViewPager viewPager) {
+
+    private void setupPager(ViewPager viewPager) {
 
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new fragmentPhone(), "phone");
         adapter.addFragment(new fragmentCars(),"cars");
         adapter.addFragment(new fragmentOther(),"others");
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.add_post,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.add_post) {
+            Intent intent = new Intent(getApplicationContext(),UploadActivity.class);
+            startActivity(intent);
+        }else if(item.getItemId()==R.id.refresh){
+            Intent intent = new Intent(getApplicationContext(),FeedActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

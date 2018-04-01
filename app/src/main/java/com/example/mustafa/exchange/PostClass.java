@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+
 public class PostClass extends ArrayAdapter<String> {
 
     private final ArrayList<String> useremail;
@@ -37,12 +38,14 @@ public class PostClass extends ArrayAdapter<String> {
         LayoutInflater layoutInflater = context.getLayoutInflater();
         View customView = layoutInflater.inflate(R.layout.custom_view,null,true);
 
-        TextView useremailText = (TextView) customView.findViewById(R.id.username);
-        TextView commentText = (TextView) customView.findViewById(R.id.commentText);
-        ImageView imageView = (ImageView) customView.findViewById(R.id.imageView2);
+        TextView useremailText=(TextView) customView.findViewById(R.id.username);
+        TextView commentText=(TextView) customView.findViewById(R.id.commentText);
+        ImageView imageView =(ImageView) customView.findViewById(R.id.imageView2);
 
         useremailText.setText(useremail.get(position));
         commentText.setText(userComment.get(position));
+
+        System.out.println("foto urllll !!!!!!!   "+ userImage.get(position));
         Picasso.with(context).load(userImage.get(position)).into(imageView);
 
         return customView;

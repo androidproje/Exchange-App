@@ -5,5 +5,9 @@
         android:id="@+id/add_post"
         android:title="add Post"
         ></item>
+    <item
+        android:id="@+id/refresh"
+        android:title="refresh"
+        ></item>
 
 </menu>
