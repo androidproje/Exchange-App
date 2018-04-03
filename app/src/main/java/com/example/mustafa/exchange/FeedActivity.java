@@ -27,9 +27,10 @@ import java.util.HashMap;
 
 public class FeedActivity extends AppCompatActivity {
 
-    ArrayList<String> useremailsFromFB;
-    ArrayList<String> userimageFromFB;
-    ArrayList<String> usercommentFromFB;
+    static ArrayList<String> useremailsFromFB;
+    static ArrayList<String> userimageFromFB;
+    static ArrayList<String> usercommentFromFB;
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference myRef;
     PostClass adapter;
@@ -51,7 +52,7 @@ public class FeedActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.phone);
         tabLayout.getTabAt(1).setIcon(R.drawable.car_icon);
 
-        useremailsFromFB = new ArrayList<String>();
+      /* useremailsFromFB = new ArrayList<String>();
         usercommentFromFB = new ArrayList<String>();
         userimageFromFB = new ArrayList<String>();
 
@@ -61,11 +62,11 @@ public class FeedActivity extends AppCompatActivity {
         adapter = new PostClass(useremailsFromFB,userimageFromFB,usercommentFromFB,this);
         gridView = (GridView) findViewById(R.id.listview1);
         gridView.setAdapter(adapter);
-
-        getDataFromFirebase();
+*/
+        //getDataFromFirebase();
 
     }
-    protected void getDataFromFirebase() {
+   public void getDataFromFirebase() {
 
         DatabaseReference newReference = firebaseDatabase.getReference("Posts");
         newReference.addValueEventListener(new ValueEventListener() {
@@ -77,6 +78,7 @@ public class FeedActivity extends AppCompatActivity {
                     useremailsFromFB.add(hashMap.get("useremail"));
                     userimageFromFB.add(hashMap.get("downloadurl"));
                     usercommentFromFB.add(hashMap.get("itemname"));
+
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -86,8 +88,8 @@ public class FeedActivity extends AppCompatActivity {
             }
         });
 
-    }
 
+    }
     private void setupPager(ViewPager viewPager) {
 
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
