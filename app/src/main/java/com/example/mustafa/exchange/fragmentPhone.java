@@ -49,9 +49,6 @@ public class fragmentPhone extends Fragment {
 
         getDataFromFirebase();
 
-
-
-
         return view;
     }
 

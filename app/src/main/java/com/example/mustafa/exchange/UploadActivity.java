@@ -65,9 +65,12 @@ public class UploadActivity extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                 String downloadURL = taskSnapshot.getDownloadUrl().toString();
+                Toast.makeText(getApplicationContext(),"Please wait, Uploading..",Toast.LENGTH_LONG).show();
+
                 FirebaseUser user = mAuth.getCurrentUser();
                 String userEmail = user.getEmail().toString();
                 String userComment = commentText.getText().toString();
+
                 UUID uuid = UUID.randomUUID();
                 String uuidString = uuid.toString();
                 myRef.child("Posts").child(uuidString).child("useremail").setValue(userEmail);

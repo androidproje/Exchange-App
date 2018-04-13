@@ -46,8 +46,12 @@ public class PostClass extends ArrayAdapter<String> {
         commentText.setText(userComment.get(position));
 
         System.out.println("foto urllll !!!!!!!   "+ userImage.get(position));
-        Picasso.with(context).load(userImage.get(position)).into(imageView);
-
+       // Picasso.with(context).load(userImage.get(position)).into(imageView);
+        Picasso.get()
+                .load(userImage.get(position))
+                .resize(150, 150)
+                .centerCrop()
+                .into(imageView);
         return customView;
     }
 }
