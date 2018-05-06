@@ -2,6 +2,8 @@ package com.example.mustafa.exchange;
 
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.renderscript.Allocation;
 import android.support.design.widget.TabLayout;
@@ -27,15 +29,6 @@ import java.util.HashMap;
 
 public class FeedActivity extends AppCompatActivity {
 
-    static ArrayList<String> useremailsFromFB;
-    static ArrayList<String> userimageFromFB;
-    static ArrayList<String> usercommentFromFB;
-
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference myRef;
-    PostClass adapter;
-    GridView gridView;
-    RecyclerView recyclerView;
     SectionsPageAdapter sectionsPageAdapter;
     private ViewPager viewPager;
     @Override
@@ -49,56 +42,21 @@ public class FeedActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setIcon(R.drawable.phone);
-        tabLayout.getTabAt(1).setIcon(R.drawable.car_icon);
 
-      /* useremailsFromFB = new ArrayList<String>();
-        usercommentFromFB = new ArrayList<String>();
-        userimageFromFB = new ArrayList<String>();
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = firebaseDatabase.getReference();
-
-        adapter = new PostClass(useremailsFromFB,userimageFromFB,usercommentFromFB,this);
-        gridView = (GridView) findViewById(R.id.listview1);
-        gridView.setAdapter(adapter);
-*/
-        //getDataFromFirebase();
-
-    }
-   public void getDataFromFirebase() {
-
-        DatabaseReference newReference = firebaseDatabase.getReference("Posts");
-        newReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    HashMap<String, String> hashMap = (HashMap<String, String>) ds.getValue();
-                    useremailsFromFB.add(hashMap.get("useremail"));
-                    userimageFromFB.add(hashMap.get("downloadurl"));
-                    usercommentFromFB.add(hashMap.get("itemname"));
-
-                    adapter.notifyDataSetChanged();
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+         tabLayout.setTabTextColors(ColorStateList.valueOf(Color.parseColor("#E0F7FA")));
+         tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#E0F7FA"));//tablayout çizgi rengi
+        // tabLayout.getTabAt(0).setIcon(R.drawable.phone);
+        //tabLayout.getTabAt(1).setIcon(R.drawable.car_icon);
 
     }
     private void setupPager(ViewPager viewPager) {
 
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new fragmentPhone(), "phone");
-        adapter.addFragment(new fragmentCars(),"cars");
-        adapter.addFragment(new fragmentOther(),"others");
+        adapter.addFragment(new fragmentAllitems(), "All items");
+        adapter.addFragment(new fragmentMyitems(),"My items");
+        adapter.addFragment(new fragmentSearch(),"Search Items");
         viewPager.setAdapter(adapter);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();

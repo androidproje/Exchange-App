@@ -32,7 +32,7 @@
     <TextView
         android:id="@+id/commentText"
         android:layout_width="match_parent"
-        android:layout_height="60sp"
+        android:layout_height="50sp"
         android:paddingLeft="5dp"
         android:paddingTop="0dp"
         android:gravity="left"
@@ -47,7 +47,7 @@
         android:layout_height="20dp"
         android:paddingLeft="5dp"
         android:textSize="15sp"
-
+        android:layout_marginBottom="50dp"
         android:gravity="left"
         android:textColor="#6adea9"
         />

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,10 +22,12 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     EditText emailText;
     EditText passwordText;
+    static String userEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         emailText=findViewById(R.id.emailText);
         passwordText=findViewById(R.id.passwordText);
@@ -37,35 +40,40 @@ public class MainActivity extends AppCompatActivity {
         };
     }
     public void signUp(View view){
-       mAuth.createUserWithEmailAndPassword(emailText.getText().toString(),passwordText.getText().toString())
-               .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                   @Override
-                   public void onComplete(@NonNull Task<AuthResult> task) {
-                      if(task.isSuccessful()){
-                          Toast.makeText(getApplicationContext(),"User Created",Toast.LENGTH_LONG).show();
-                          Intent intent=new Intent(getApplicationContext(),FeedActivity.class);
-                          startActivity(intent);}
-                   }
-               }).addOnFailureListener(this, new OnFailureListener() {
-           @Override
-           public void onFailure(@NonNull Exception e) {
-            if(e!=null){
-                Toast.makeText(getApplicationContext(),e.getLocalizedMessage().toString(),Toast.LENGTH_LONG).show();                      }
-           }
-       });
+        mAuth.createUserWithEmailAndPassword(emailText.getText().toString(),passwordText.getText().toString())
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(getApplicationContext(),"User Created",Toast.LENGTH_LONG).show();
+                            Intent intent=new Intent(getApplicationContext(),FeedActivity.class);
+                            startActivity(intent);}
+                    }
+                }).addOnFailureListener(this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if(e!=null){
+                    Toast.makeText(getApplicationContext(),e.getLocalizedMessage().toString(),Toast.LENGTH_LONG).show();                      }
+            }
+        });
 
     }
     public void signIn(View view){
+        Toast.makeText(getApplicationContext(),"Please wait..",Toast.LENGTH_LONG).show();
 
         mAuth.signInWithEmailAndPassword(emailText.getText().toString(),passwordText.getText().toString())
+
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
                             Intent intent=new Intent(getApplicationContext(),FeedActivity.class);
+                            userEmail=emailText.getText().toString();
                             startActivity(intent);
-                         }
+                        }
                     }
                 }).addOnFailureListener(this, new OnFailureListener() {
             @Override

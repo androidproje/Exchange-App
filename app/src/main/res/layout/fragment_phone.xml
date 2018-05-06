@@ -16,7 +16,7 @@
             android:gravity="center|bottom"
             android:horizontalSpacing="10dp"
             android:numColumns="2"
-            android:paddingTop="55dp"
+            android:paddingTop="40dp"
             android:stretchMode="columnWidth"
             android:verticalSpacing="10dp"
            android:layout_gravity="start"

@@ -39,6 +39,7 @@ public class UploadActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private StorageReference mStorageRef;
     Uri selected;
+    EditText desiredThing;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,13 +52,17 @@ public class UploadActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
+        desiredThing=findViewById(R.id.DesiredThing);
     }
 
     public void upload(View view){
+       // Toast.makeText(getApplicationContext(),"Please wait, Uploading..",Toast.LENGTH_LONG).show();
 
         UUID uuidImage = UUID.randomUUID();
         String imageName = "images/"+uuidImage+".jpg";
         StorageReference storageReference = mStorageRef.child(imageName);
+
+
 
         storageReference.putFile(selected).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @SuppressWarnings("VisibleForTests")
@@ -65,7 +70,6 @@ public class UploadActivity extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                 String downloadURL = taskSnapshot.getDownloadUrl().toString();
-                Toast.makeText(getApplicationContext(),"Please wait, Uploading..",Toast.LENGTH_LONG).show();
 
                 FirebaseUser user = mAuth.getCurrentUser();
                 String userEmail = user.getEmail().toString();
@@ -76,6 +80,7 @@ public class UploadActivity extends AppCompatActivity {
                 myRef.child("Posts").child(uuidString).child("useremail").setValue(userEmail);
                 myRef.child("Posts").child(uuidString).child("itemname").setValue(userComment);
                 myRef.child("Posts").child(uuidString).child("downloadurl").setValue(downloadURL);
+                myRef.child("Posts").child(uuidString).child("desiredthing").setValue(desiredThing.getText().toString());
                 Toast.makeText(getApplicationContext(),"Post Shared",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), FeedActivity.class);
                 startActivity(intent);

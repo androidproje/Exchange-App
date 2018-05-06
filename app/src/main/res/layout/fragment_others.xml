@@ -4,13 +4,52 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <TextView
-        android:id="@+id/others"
+
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.38"
-        android:gravity="center"
-        android:text="Fragment Hot"
-        android:textAlignment="center"
-        android:textSize="30sp" />
+        android:layout_height="40dp"
+        android:layout_marginTop="44dp"
+        android:hint="Type Desired Thing"
+        android:id="@+id/SearchWord"
+        android:drawableRight="@drawable/searchyenii"
+        android:shadowRadius="@android:integer/config_longAnimTime"
+        android:inputType="textCapSentences|textAutoCorrect"
+
+        />
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="0dp"
+        android:columnWidth="90dp"
+        android:gravity="center|bottom"
+        android:horizontalSpacing="10dp"
+        android:paddingTop="0dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp"
+        android:layout_gravity="start"
+        ></ListView>
+<TextView
+    android:layout_width="match_parent"
+    android:layout_marginTop="5dp"
+    android:background="#4DB6AC"
+    android:text="Exact Match"
+    android:layout_height="20dp" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/exactmatch"
+        android:layout_marginTop="5dp"
+        android:columnWidth="90dp"
+        android:gravity="center|bottom"
+        android:horizontalSpacing="10dp"
+        android:paddingTop="0dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp"
+        android:layout_gravity="start"
+
+
+        ></ListView>
+
+
 </LinearLayout>
