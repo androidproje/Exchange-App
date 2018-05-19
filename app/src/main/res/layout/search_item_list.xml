@@ -3,7 +3,7 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="130dp"
     android:layout_marginLeft="0dp"
     android:orientation="vertical"
     android:layout_marginRight="10dp"
@@ -13,14 +13,33 @@
     android:id="@+id/rootCardView"
     android:background="@xml/list_item_selector"
     >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:layout_marginTop="95dp"
+    >
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="15dp"
+        android:textColor="#4DB6AC"
+        android:text="useremail"
+        android:paddingTop="5dp"
+        android:paddingLeft="10dp"
+
+
+
+        />
+
+</LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="0dp"
-        android:padding="5dp"
-
         android:orientation="horizontal"
+        android:padding="5dp"
         android:paddingLeft="0dp">
 
         <ImageView
@@ -31,42 +50,72 @@
             android:layout_marginLeft="0dp"
             android:layout_marginTop="0dp"
             android:paddingLeft="0dp"
-            app:layout_constraintHorizontal_bias="1.0"
             android:scaleType="centerCrop"
+            app:layout_constraintHorizontal_bias="1.0"
             app:srcCompat="@mipmap/ic_launcher"
 
             />
+<LinearLayout
+    android:layout_width="70dp"
+    android:layout_height="90dp"
+    android:orientation="vertical"
+
+    >
+
+    <TextView
+
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="Itemname"
+        android:textColor="#000000"
+        android:textSize="14dp" />
+    <TextView
+
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="0dp"
+        android:gravity="center"
+        android:text="desired"
+        android:paddingTop="10dp"
+        android:textColor="#000000"
+        android:textSize="14dp" />
+
+
+</LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/commentText"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:paddingLeft="5dp"
-                android:paddingTop="0dp"
-                android:padding="10dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="0dp"
                 android:gravity="left"
-                android:textColor="#000000"
+                android:padding="10dp"
+                android:paddingLeft="0dp"
+                android:paddingTop="0dp"
                 android:text="comment"
-                android:textSize="15sp" />
+                android:textColor="#000000"
+                android:textSize="13sp" />
 
             <TextView
-                android:id="@+id/username"
-                android:text="username"
-                android:layout_marginTop="15dp"
+                android:id="@+id/desiredthing"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:paddingLeft="5dp"
-                android:textSize="15sp"
-                android:layout_marginBottom="50dp"
-                android:gravity="left"
-                android:textColor="#6adea9"
-                />
+                android:layout_height="40dp"
+                android:layout_marginTop="17dp"
+                android:padding="10dp"
+                android:text="desired thing"
+                android:textColor="#000000"
+                android:textSize="13dp"
 
+                />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -40,6 +40,7 @@ public class UploadActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
     Uri selected;
     EditText desiredThing;
+    static String User_Uuid;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +78,7 @@ public class UploadActivity extends AppCompatActivity {
 
                 UUID uuid = UUID.randomUUID();
                 String uuidString = uuid.toString();
+                User_Uuid=uuid.toString();
                 myRef.child("Posts").child(uuidString).child("useremail").setValue(userEmail);
                 myRef.child("Posts").child(uuidString).child("itemname").setValue(userComment);
                 myRef.child("Posts").child(uuidString).child("downloadurl").setValue(downloadURL);
@@ -84,6 +86,7 @@ public class UploadActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Post Shared",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), FeedActivity.class);
                 startActivity(intent);
+
 
             }
         }).addOnFailureListener(new OnFailureListener() {

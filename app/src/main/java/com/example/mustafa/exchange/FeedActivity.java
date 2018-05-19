@@ -55,6 +55,8 @@ public class FeedActivity extends AppCompatActivity {
         adapter.addFragment(new fragmentAllitems(), "All items");
         adapter.addFragment(new fragmentMyitems(),"My items");
         adapter.addFragment(new fragmentSearch(),"Search Items");
+        adapter.addFragment(new FragmentMultiple(),"Multiple Exchange");
+
         viewPager.setAdapter(adapter);
     }
     @Override

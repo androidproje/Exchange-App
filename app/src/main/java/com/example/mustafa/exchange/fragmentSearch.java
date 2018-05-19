@@ -1,18 +1,14 @@
 package com.example.mustafa.exchange;
-import android.app.Notification;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,20 +24,22 @@ public class fragmentSearch extends Fragment {
     ArrayList<String> useremailsFromFB;
     ArrayList<String> userimageFromFB;
     ArrayList<String> usercommentFromFB;
+    ArrayList<String> userdesiredFromFB;
+
 
     ArrayList<String> useremailsFromFB1;
     ArrayList<String> userimageFromFB1;
     ArrayList<String> usercommentFromFB1;
+    ArrayList<String> userdesiredFromFB1;
+
+
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference myRef;
     Search_Adapter adapter;
     Search_Adapter adapter1;
 
     ListView listView;
-    String receiving="";
-    String istenen="";
-
-
     ListView matched;
     EditText SearchWord;
 
@@ -53,21 +51,26 @@ public class fragmentSearch extends Fragment {
         useremailsFromFB = new ArrayList<String>();
         usercommentFromFB = new ArrayList<String>();
         userimageFromFB = new ArrayList<String>();
+        userdesiredFromFB = new ArrayList<String>();
+
 
         useremailsFromFB1 = new ArrayList<String>();
         usercommentFromFB1 = new ArrayList<String>();
         userimageFromFB1 = new ArrayList<String>();
+        userdesiredFromFB1 = new ArrayList<String>();
+
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         myRef = firebaseDatabase.getReference();
 
+
         SearchWord=view.findViewById(R.id.SearchWord);
 
-        adapter = new Search_Adapter(useremailsFromFB,userimageFromFB,usercommentFromFB,this.getActivity());
+        adapter = new Search_Adapter(useremailsFromFB,userimageFromFB,usercommentFromFB, userdesiredFromFB, this.getActivity());
         listView = (ListView) view.findViewById(R.id.listview);
         listView.setAdapter(adapter);
 
-        adapter1=new Search_Adapter(useremailsFromFB1,userimageFromFB1,usercommentFromFB1,this.getActivity());
+        adapter1=new Search_Adapter(useremailsFromFB1,userimageFromFB1,usercommentFromFB1, userdesiredFromFB1, this.getActivity());
         matched=view.findViewById(R.id.exactmatch);
         matched.setAdapter(adapter1);
 
@@ -86,20 +89,20 @@ public class fragmentSearch extends Fragment {
                 if(!s.toString().isEmpty()){
                     getDataFromFirebase(s.toString());
                     getDataExactMatch(s.toString());
-                    System.out.println("receiving = "+ receiving);
-                    System.out.println("istenen = "+istenen);
 
-                }
+                    }
                     else{
                     listView.removeAllViewsInLayout();
                     usercommentFromFB.clear();
                     useremailsFromFB.clear();
                     userimageFromFB.clear();
+                    userdesiredFromFB.clear();
 
                     matched.removeAllViewsInLayout();
                     usercommentFromFB1.clear();
                     useremailsFromFB1.clear();
                     userimageFromFB1.clear();
+                    userdesiredFromFB1.clear();
 
                 }
 
@@ -116,6 +119,7 @@ public class fragmentSearch extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 usercommentFromFB.clear();
+                userdesiredFromFB.clear();
                 useremailsFromFB.clear();
                 userimageFromFB.clear();
                 listView.removeAllViewsInLayout();
@@ -128,6 +132,8 @@ public class fragmentSearch extends Fragment {
                         useremailsFromFB.add(hashMap.get("useremail"));
                         userimageFromFB.add(hashMap.get("downloadurl"));
                         usercommentFromFB.add(hashMap.get("itemname"));
+                        userdesiredFromFB.add(hashMap.get("desiredthing"));
+                        System.out.println("uuid kullanıcı!!!! ="+ UploadActivity.User_Uuid);
                     }
                     adapter.notifyDataSetChanged();
                 }
@@ -148,27 +154,33 @@ public class fragmentSearch extends Fragment {
                 usercommentFromFB1.clear();
                 useremailsFromFB1.clear();
                 userimageFromFB1.clear();
+                userdesiredFromFB1.clear();
+
                 matched.removeAllViewsInLayout();
+
+                String bendeOlan="";
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    HashMap<String, String> hashMap = (HashMap<String, String>) ds.getValue();
+
+                    if(hashMap.get("useremail").equals(MainActivity.userEmail) && !bendeOlan.contains(hashMap.get("itemname"))) {
+
+                        bendeOlan+=hashMap.get("itemname")+'_';
+                    }
+                }
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     HashMap<String, String> hashMap = (HashMap<String, String>) ds.getValue();
+                    Boolean b1=  !hashMap.get("useremail").equals(MainActivity.userEmail);
 
-                    if(hashMap.get("useremail").equals(MainActivity.userEmail)&&!receiving.contains( hashMap.get("itemname"))) {
+                    String itemname=hashMap.get("itemname").toLowerCase();
 
-                        receiving=receiving+" "+ hashMap.get("itemname")+",";
-                    }
-                    if(!hashMap.get("useremail").equals(MainActivity.userEmail)&&!istenen.contains(hashMap.get("desiredthing"))){
-                        istenen=istenen+" "+hashMap.get("desiredthing")+",";
-                    }
-                    if(!hashMap.get("useremail").equals(MainActivity.userEmail)&&hashMap.get("itemname").contains(searchword.toString().toLowerCase())
-                            ||hashMap.get("itemname").contains(searchword.toString().toUpperCase())
-                            && istenen.contains(receiving)
-
-                            ){
+                    Boolean b3= itemname.contains(searchword.toString().toLowerCase())
+                            && bendeOlan.contains(hashMap.get("desiredthing").toLowerCase().toLowerCase());
+                    if(b1&&b3) {
                         useremailsFromFB1.add(hashMap.get("useremail"));
                         userimageFromFB1.add(hashMap.get("downloadurl"));
                         usercommentFromFB1.add(hashMap.get("itemname"));
-
+                        userdesiredFromFB1.add(hashMap.get("desiredthing"));
                     }
                     adapter1.notifyDataSetChanged();
 

@@ -8,7 +8,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,9 +47,7 @@ public class fragmentAllitems extends Fragment {
          gridView = (GridView) view.findViewById(R.id.gridview);
          gridView.setAdapter(adapter);
          getDataFromFirebase();
-
-
-        return view;
+         return view;
     }
 
     protected void getDataFromFirebase() {

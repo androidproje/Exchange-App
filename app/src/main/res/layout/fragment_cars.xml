@@ -7,20 +7,21 @@
     android:layout_gravity="start"
 
     >
-    <GridView
-        android:id="@+id/gridview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:columnWidth="90dp"
-        android:gravity="center|bottom"
-        android:horizontalSpacing="10dp"
-        android:numColumns="2"
-        android:paddingTop="40dp"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp"
-        android:layout_gravity="start"
-        ></GridView>
+   <GridView
+       android:id="@+id/gridview1"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_margin="10dp"
+       android:columnWidth="90dp"
+       android:gravity="center|bottom"
+       android:horizontalSpacing="10dp"
+       android:numColumns="1"
+       android:paddingTop="40dp"
+       android:stretchMode="columnWidth"
+       android:verticalSpacing="10dp"
+       android:layout_gravity="start"
+       ></GridView>
+
 
 
 </LinearLayout>

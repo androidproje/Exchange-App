@@ -60,7 +60,7 @@
             android:inputType="textEmailAddress"
             android:drawableLeft="@drawable/logpeople"
             android:textColor="#012917"
-            android:text="samet@hotmail.com"
+            android:text="mustafasu@hotmail.com"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
