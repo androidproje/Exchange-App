@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.onesignal.OneSignal;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -32,7 +34,6 @@ public class fragmentMyitems extends Fragment {
     ArrayList<String> userimageFromFB;
     ArrayList<String> usercommentFromFB;
     static ArrayList<String> uuidofItems;
-
 
     FirebaseDatabase firebaseDatabase;
     static DatabaseReference myRef;
@@ -66,12 +67,13 @@ public class fragmentMyitems extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
                 Intent intent = new Intent(getActivity(), EditActivity.class);
+                intent.putExtra("UUIDofItem",uuidofItems.get(position));
                 startActivity(intent);
-            }
+                 }
         });
-
-
         return view;
     }
     protected void getDataFromFirebase() {
@@ -90,7 +92,6 @@ public class fragmentMyitems extends Fragment {
                            userimageFromFB.add(hashMap.get("downloadurl"));
                            usercommentFromFB.add(hashMap.get("itemname"));
                            uuidofItems.add(ds.getKey());
-                           System.out.println("uuid of = "+ds.getKey());
                            adapter.notifyDataSetChanged();
                        }
                 }
@@ -101,8 +102,5 @@ public class fragmentMyitems extends Fragment {
         });
 
     }
-
-
-
 }
 

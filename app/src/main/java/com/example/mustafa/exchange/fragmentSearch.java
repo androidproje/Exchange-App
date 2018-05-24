@@ -1,4 +1,5 @@
 package com.example.mustafa.exchange;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,14 +8,18 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.onesignal.OneSignal;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,14 +30,10 @@ public class fragmentSearch extends Fragment {
     ArrayList<String> userimageFromFB;
     ArrayList<String> usercommentFromFB;
     ArrayList<String> userdesiredFromFB;
-
-
     ArrayList<String> useremailsFromFB1;
     ArrayList<String> userimageFromFB1;
     ArrayList<String> usercommentFromFB1;
     ArrayList<String> userdesiredFromFB1;
-
-
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference myRef;
@@ -48,6 +49,7 @@ public class fragmentSearch extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_others,container,false);
+
         useremailsFromFB = new ArrayList<String>();
         usercommentFromFB = new ArrayList<String>();
         userimageFromFB = new ArrayList<String>();
@@ -58,6 +60,8 @@ public class fragmentSearch extends Fragment {
         usercommentFromFB1 = new ArrayList<String>();
         userimageFromFB1 = new ArrayList<String>();
         userdesiredFromFB1 = new ArrayList<String>();
+
+
 
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -73,6 +77,16 @@ public class fragmentSearch extends Fragment {
         adapter1=new Search_Adapter(useremailsFromFB1,userimageFromFB1,usercommentFromFB1, userdesiredFromFB1, this.getActivity());
         matched=view.findViewById(R.id.exactmatch);
         matched.setAdapter(adapter1);
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), Notification.class);
+                startActivity(intent);
+            }
+        });
+
 
         SearchWord.addTextChangedListener(new TextWatcher() {
 
@@ -133,7 +147,7 @@ public class fragmentSearch extends Fragment {
                         userimageFromFB.add(hashMap.get("downloadurl"));
                         usercommentFromFB.add(hashMap.get("itemname"));
                         userdesiredFromFB.add(hashMap.get("desiredthing"));
-                        System.out.println("uuid kullanıcı!!!! ="+ UploadActivity.User_Uuid);
+                        //System.out.println("uuid kullanıcı!!!! ="+ UploadActivity.User_Uuid);
                     }
                     adapter.notifyDataSetChanged();
                 }

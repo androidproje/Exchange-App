@@ -10,6 +10,14 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        manifestPlaceholders = [
+                onesignal_app_id               : 'f3813aa0-546a-4555-aa56-cf23bc652836',
+                // Project number pulled from dashboard, local value is ignored.
+                onesignal_google_project_number: 'REMOTE']
+
+
     }
     buildTypes {
         release {
@@ -39,6 +47,14 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    compile 'com.onesignal:OneSignal:[3.9.0, 3.99.99]'
+
+
+    compile 'com.google.firebase:firebase-firestore:11.8.0'
+
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+
 
 }
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'

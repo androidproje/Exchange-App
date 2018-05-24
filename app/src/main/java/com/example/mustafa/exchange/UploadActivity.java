@@ -58,13 +58,10 @@ public class UploadActivity extends AppCompatActivity {
 
     public void upload(View view){
        // Toast.makeText(getApplicationContext(),"Please wait, Uploading..",Toast.LENGTH_LONG).show();
-
         UUID uuidImage = UUID.randomUUID();
         String imageName = "images/"+uuidImage+".jpg";
+
         StorageReference storageReference = mStorageRef.child(imageName);
-
-
-
         storageReference.putFile(selected).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @SuppressWarnings("VisibleForTests")
             @Override
@@ -86,7 +83,6 @@ public class UploadActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Post Shared",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), FeedActivity.class);
                 startActivity(intent);
-
 
             }
         }).addOnFailureListener(new OnFailureListener() {

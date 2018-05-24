@@ -67,12 +67,7 @@ public class MyItems_Adapter extends ArrayAdapter<String> {
                 .resize(150, 150)
                 .centerCrop()
                 .into(imageView);
-
-
-
-
-             delete(delete,position);
-
+        delete(delete,position);
 
         return customView;
     }
@@ -96,7 +91,6 @@ public class MyItems_Adapter extends ArrayAdapter<String> {
                                 Toast.makeText(getContext(),"Item is removed",Toast.LENGTH_LONG).show();
                                 myRef=FirebaseDatabase.getInstance().getReference().child("Posts").child(fragmentMyitems.uuidofItems.get(positions));
                                 myRef.removeValue();
-
                                 fragmentMyitems.uuidofItems.remove(positions);
 
                                 fragmentMyitems.adapter.remove(fragmentMyitems.adapter.getItem(positions));
@@ -104,13 +98,9 @@ public class MyItems_Adapter extends ArrayAdapter<String> {
                                 System.out.println("basılan position = "+ positions);
                                 fragmentMyitems.adapter.notifyDataSetChanged();
 
-
                                 Intent intent = new Intent(context, FeedActivity.class);
                                 context.startActivity(intent);
-
-
-
-                            }
+                                }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
