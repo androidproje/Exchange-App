@@ -42,6 +42,7 @@ public class UploadActivity extends AppCompatActivity {
     EditText desiredThing;
     static String User_Uuid;
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
@@ -71,6 +72,7 @@ public class UploadActivity extends AppCompatActivity {
 
                 FirebaseUser user = mAuth.getCurrentUser();
                 String userEmail = user.getEmail().toString();
+
                 String userComment = commentText.getText().toString();
 
                 UUID uuid = UUID.randomUUID();

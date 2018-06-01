@@ -39,6 +39,7 @@ public class fragmentMyitems extends Fragment {
     static DatabaseReference myRef;
     static MyItems_Adapter adapter;
     ImageView deleteitems;
+    static String MyItems;
 
      static   GridView gridView;
 
@@ -92,6 +93,8 @@ public class fragmentMyitems extends Fragment {
                            userimageFromFB.add(hashMap.get("downloadurl"));
                            usercommentFromFB.add(hashMap.get("itemname"));
                            uuidofItems.add(ds.getKey());
+                           MyItems+=hashMap.get("itemname");
+
                            adapter.notifyDataSetChanged();
                        }
                 }

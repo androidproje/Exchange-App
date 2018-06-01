@@ -39,6 +39,7 @@ public class FeedActivity extends AppCompatActivity {
 
         OneSignal.sendTag("User_ID",MainActivity.userEmail);
 
+
         sectionsPageAdapter=new SectionsPageAdapter(getSupportFragmentManager());
         viewPager=(ViewPager)findViewById(R.id.container);
         setupPager(viewPager);
@@ -55,8 +56,8 @@ public class FeedActivity extends AppCompatActivity {
     private void setupPager(ViewPager viewPager) {
 
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new fragmentAllitems(), "All items");
-        adapter.addFragment(new fragmentMyitems(),"My items");
+        adapter.addFragment(new fragmentAllitems(), "All Items");
+        adapter.addFragment(new fragmentMyitems(),"My Items");
         adapter.addFragment(new fragmentSearch(),"Search Items");
         adapter.addFragment(new FragmentMultiple(),"Multiple Exchange");
 

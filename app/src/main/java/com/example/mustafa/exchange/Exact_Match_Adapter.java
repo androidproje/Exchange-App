@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -21,66 +22,46 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Multiple_Exchange_Adapter extends ArrayAdapter<String> {
+public class Exact_Match_Adapter extends ArrayAdapter<String> {
 
     private final ArrayList<String> useremail;
     private final ArrayList<String> userImage;
     private final ArrayList<String> userComment;
-    private final ArrayList<String> userdesired_1kişi;
-
-
-    ImageView sendNoti;
-    private final ArrayList<String> useremail1;
-    private final ArrayList<String> userImage1;
-    private final ArrayList<String> userComment1;
-    private final ArrayList<String> userdesired_2kişi;
-
-
+    private final ArrayList<String> userdesired;
+    ImageView send;
+    static String sendEmail;
+    static String kiminyolla;
 
     private final Activity context;
 
 
-    public Multiple_Exchange_Adapter(ArrayList<String> useremail, ArrayList<String> userImage, ArrayList<String> userComment, ArrayList<String> userdesired_1kişi, ArrayList<String> useremail1, ArrayList<String> userImage1, ArrayList<String> userComment1, ArrayList<String> userdesired_2kişi, Activity context) {
-        super(context, R.layout.multiple_exchange_list,useremail);
+    public Exact_Match_Adapter(ArrayList<String> useremail, ArrayList<String> userImage, ArrayList<String> userComment, ArrayList<String> userdesired, Activity context) {
+        super(context, R.layout.search_item_list,useremail);
         this.useremail = useremail;
         this.userImage = userImage;
         this.userComment = userComment;
-        this.userdesired_1kişi = userdesired_1kişi;
-        this.userdesired_2kişi = userdesired_2kişi;
-        this.useremail1 = useremail1;
-        this.userImage1 = userImage1;
-        this.userComment1 = userComment1;
+        this.userdesired = userdesired;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         LayoutInflater layoutInflater = context.getLayoutInflater();
-        View customView = layoutInflater.inflate(R.layout.multiple_exchange_list,null,true);
+        View customView = layoutInflater.inflate(R.layout.search_item_list,null,true);
 
-        TextView useremailText=(TextView) customView.findViewById(R.id.username_1kişi);
-        TextView commentText=(TextView) customView.findViewById(R.id.itemname_1kişi);
-        ImageView imageView =(ImageView) customView.findViewById(R.id.image_1kişi);
-        TextView userdesired=(TextView) customView.findViewById(R.id.desiredthing);
-
-        sendNoti=(ImageView)customView.findViewById(R.id.multiplenoti);
-
-
-        TextView useremailText2=(TextView) customView.findViewById(R.id.username_2kişi);
-        TextView commentText2=(TextView) customView.findViewById(R.id.itemname_2kişi);
-        ImageView imageView2 =(ImageView) customView.findViewById(R.id.imageView_2kişi);
-        TextView userdesired_2=(TextView) customView.findViewById(R.id.desiredthing1);
-
+        TextView useremailText=(TextView) customView.findViewById(R.id.username);
+        TextView commentText=(TextView) customView.findViewById(R.id.commentText);
+        ImageView imageView =(ImageView) customView.findViewById(R.id.imageView2);
+        TextView desiredthing=(TextView) customView.findViewById(R.id.desiredthing);
+        send=customView.findViewById(R.id.notification);
 
         useremailText.setText(useremail.get(position));
-        userdesired.setText(userdesired_1kişi.get(position));
-        useremailText2.setText(useremail1.get(position));
-        userdesired_2.setText(userdesired_2kişi.get(position));
-
         commentText.setText(userComment.get(position));
-        commentText2.setText(userComment1.get(position));
+        desiredthing.setText(userdesired.get(position));
+
+        kiminyolla=MainActivity.userEmail;
         // Picasso.with(context).load(userImage.get(position)).into(imageView);
         Picasso.get()
                 .load(userImage.get(position))
@@ -88,21 +69,18 @@ public class Multiple_Exchange_Adapter extends ArrayAdapter<String> {
                 .centerCrop()
                 .into(imageView);
 
-        Picasso.get()
-                .load(userImage1.get(position))
-                .resize(150, 150)
-                .centerCrop()
-                .into(imageView2);
-
-
-        sendNoti.setOnClickListener(new View.OnClickListener() {
+        send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-sendNotification(FragmentMultiple.kişi_1_email);
-sendNotification(FragmentMultiple.kişi_2_email);
+                // Toast.makeText(getContext(),"Position ="+position,Toast.LENGTH_LONG).show();
+                sendEmail=useremail.get(position);
+
+
+
+                sendNotification(sendEmail);
+
             }
         });
-
         return customView;
     }
     private void sendNotification(final String send_Email)
@@ -133,7 +111,7 @@ sendNotification(FragmentMultiple.kişi_2_email);
                                 + "\"app_id\": \"f3813aa0-546a-4555-aa56-cf23bc652836\","
                                 + "\"filters\": [{\"field\": \"tag\", \"key\": \"User_ID\", \"relation\": \"=\", \"value\": \"" + send_Email + "\"}],"
 
-                                + "\"headings\": {\"en\":\""+MainActivity.userEmail+" \"},"
+                                + "\"headings\": {\"en\":\""+kiminyolla+" \"},"
                                 + "\"contents\": {\"en\":\" Sizinle değişim yapmak istiyor\"},"
                                 + "\"buttons\":  [{\"id\": \"id1\", \"text\": \"Onayla\", \"icon\": \"ic_menu_share\"}, {\"id\": \"id2\", \"text\": \"İptal\", \"icon\": \"ic_menu_send\"}]"
                                 + "}";
@@ -170,6 +148,8 @@ sendNotification(FragmentMultiple.kişi_2_email);
             }
         });
     }
-
-
 }
+
+
+
+

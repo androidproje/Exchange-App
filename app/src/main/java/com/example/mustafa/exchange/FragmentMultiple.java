@@ -33,6 +33,9 @@ public class FragmentMultiple extends android.support.v4.app.Fragment {
     ArrayList<String> usercommentFromFB_2kişi;
     ArrayList<String> userdesiredFromFB_2kişi;
 
+    static  String kişi_1_email;
+    static  String kişi_2_email;
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference myRef;
     Multiple_Exchange_Adapter adapter;
@@ -154,6 +157,8 @@ public class FragmentMultiple extends android.support.v4.app.Fragment {
                         userdesiredFromFB_2kişi.add(hashMap.get("desiredthing"));
                         kişi_2 += hashMap.get("useremail");
                         kişi_2_itemName+= hashMap.get("itemname");
+                        kişi_2_email=hashMap.get("useremail");
+
 
                     }
                 }
@@ -169,11 +174,12 @@ public class FragmentMultiple extends android.support.v4.app.Fragment {
                         useremailsFromFB_1kişi.add(hashMap.get("useremail"));
                         userimageFromFB_1kişi.add(hashMap.get("downloadurl"));
                         userdesiredFromFB_1kişi.add(hashMap.get("desiredthing"));
+                        kişi_1_email=hashMap.get("useremail");
 
                     }
                     adapter.notifyDataSetChanged();
                 }
-               // System.out.println("aracı   =="+ aracı);
+               System.out.println("kişi 1=== "+ kişi_1_email+ "kişi 2 = "+kişi_2_email);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

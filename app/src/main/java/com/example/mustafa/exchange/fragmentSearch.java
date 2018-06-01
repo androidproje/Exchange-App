@@ -38,7 +38,7 @@ public class fragmentSearch extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference myRef;
     Search_Adapter adapter;
-    Search_Adapter adapter1;
+    Exact_Match_Adapter adapter1;
 
     ListView listView;
     ListView matched;
@@ -60,34 +60,18 @@ public class fragmentSearch extends Fragment {
         usercommentFromFB1 = new ArrayList<String>();
         userimageFromFB1 = new ArrayList<String>();
         userdesiredFromFB1 = new ArrayList<String>();
-
-
-
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         myRef = firebaseDatabase.getReference();
-
-
         SearchWord=view.findViewById(R.id.SearchWord);
+
 
         adapter = new Search_Adapter(useremailsFromFB,userimageFromFB,usercommentFromFB, userdesiredFromFB, this.getActivity());
         listView = (ListView) view.findViewById(R.id.listview);
         listView.setAdapter(adapter);
 
-        adapter1=new Search_Adapter(useremailsFromFB1,userimageFromFB1,usercommentFromFB1, userdesiredFromFB1, this.getActivity());
+        adapter1=new Exact_Match_Adapter(useremailsFromFB1,userimageFromFB1,usercommentFromFB1, userdesiredFromFB1, this.getActivity());
         matched=view.findViewById(R.id.exactmatch);
         matched.setAdapter(adapter1);
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), Notification.class);
-                startActivity(intent);
-            }
-        });
-
-
         SearchWord.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -137,6 +121,7 @@ public class fragmentSearch extends Fragment {
                 useremailsFromFB.clear();
                 userimageFromFB.clear();
                 listView.removeAllViewsInLayout();
+
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     HashMap<String, String> hashMap = (HashMap<String, String>) ds.getValue();

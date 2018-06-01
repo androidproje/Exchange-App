@@ -29,7 +29,9 @@ public class Search_Adapter extends ArrayAdapter<String> {
     private final ArrayList<String> userComment;
     private final ArrayList<String> userdesired;
     ImageView send;
-    String sendEmail;
+    static String sendEmail;
+    static String kiminyolla;
+    static  String yenidenyolla;
 
     private final Activity context;
 
@@ -53,12 +55,14 @@ public class Search_Adapter extends ArrayAdapter<String> {
         TextView useremailText=(TextView) customView.findViewById(R.id.username);
         TextView commentText=(TextView) customView.findViewById(R.id.commentText);
         ImageView imageView =(ImageView) customView.findViewById(R.id.imageView2);
-        TextView desiredthing=(TextView) customView.findViewById(R.id.desiredthing);
+        final TextView desiredthing=(TextView) customView.findViewById(R.id.desiredthing);
         send=customView.findViewById(R.id.notification);
 
         useremailText.setText(useremail.get(position));
         commentText.setText(userComment.get(position));
         desiredthing.setText(userdesired.get(position));
+
+        kiminyolla=MainActivity.userEmail;
 
         // Picasso.with(context).load(userImage.get(position)).into(imageView);
         Picasso.get()
@@ -74,8 +78,14 @@ public class Search_Adapter extends ArrayAdapter<String> {
             public void onClick(View v) {
                 // Toast.makeText(getContext(),"Position ="+position,Toast.LENGTH_LONG).show();
                 sendEmail=useremail.get(position);
+                System.out.println("myitemss   "+ fragmentMyitems.MyItems);
+                System.out.println("user item "+ userdesired.get(position));
+                if(fragmentMyitems.MyItems.contains(userdesired.get(position))) {
+                    sendNotification(sendEmail);
 
-                sendNotification(sendEmail);
+                }else{
+                    Toast.makeText(getContext(),"İstenen iteme sahip değilsiniz : "+userdesired.get(position),Toast.LENGTH_LONG).show();
+                }
             }
         });
         return customView;
@@ -109,12 +119,14 @@ public class Search_Adapter extends ArrayAdapter<String> {
 
                         String strJsonBody = "{"
                                 + "\"app_id\": \"f3813aa0-546a-4555-aa56-cf23bc652836\","
-
                                 + "\"filters\": [{\"field\": \"tag\", \"key\": \"User_ID\", \"relation\": \"=\", \"value\": \"" + send_Email + "\"}],"
 
-                                + "\"data\": {\"foo\": \"bar\"},"
-                                + "\"contents\": {\"en\":\" Sizinle değişim yapmak istiyor\"}"
+                                + "\"headings\": {\"en\":\""+kiminyolla+" \"},"
+                                + "\"contents\": {\"en\":\" Sizinle değişim yapmak istiyor\"},"
+                                + "\"buttons\":  [{\"id\": \"id1\", \"text\": \"Onayla\", \"icon\": \"\"}, {\"id\": \"id2\", \"text\": \"İptal\", \"icon\": \"\"}]"
                                 + "}";
+
+
 
                      //   System.out.println("strJsonBody:\n" + strJsonBody);
 
